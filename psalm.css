@@ -125,7 +125,7 @@ html, body {
     }
 
     .caret {
-        border-color: black;
+        border-color: var(--text-base);
         border-width: 10px;
     }
 }
