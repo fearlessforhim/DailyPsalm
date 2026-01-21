@@ -129,3 +129,21 @@ html, body {
         border-width: 10px;
     }
 }
+
+.quick-today-wrap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+}
+.quick-today {
+    color: white;
+    font-size: 40px;
+    padding: 10px;
+    cursor: pointer;
+    max-width: max-content;
+    margin: auto;
+    background-color: #555555;
+    border-radius: 5px 5px 0 0;
+}

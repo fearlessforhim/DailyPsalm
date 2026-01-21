@@ -242,5 +242,9 @@ const library = {
     previousDay: () => {
         dataModel.currentDate.setDate(dataModel.currentDate.getDate() - 1);
         library.applyDate();
+    },
+    goToToday: () => {
+        dataModel.currentDate = new Date();
+        library.applyDate();
     }
 };
