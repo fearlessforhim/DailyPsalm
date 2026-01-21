@@ -77,6 +77,12 @@ html, body {
     border-left: 3px solid var(--text-base);
 }
 
+a {
+    color: var(--text-base);
+    text-decoration: none;
+    display: block;
+}
+
 .navigation {
     padding: 10px;
     cursor: pointer;

@@ -142,6 +142,19 @@ const _tools = {
     text: (text) => {
         return document.createTextNode(text);
     },
+    linkText: (text) => {
+        let linkText = text.replace(' ', '+') + '';
+        if (linkText.indexOf('(') >= 0) {
+            linkText = linkText.slice(0, linkText.indexOf('(') - 1);
+        }
+        const href = `https://www.esv.org/${linkText}/`;
+        const newA = document.createElement('a');
+        newA.href = href;
+        newA.target = '_blank';
+        const textNode = document.createTextNode(text);
+        newA.appendChild(textNode);
+        return newA;
+    },
     textDiv: (text) => {
         const div = _tools.div();
         div.appendChild(_tools.text(text));
@@ -203,21 +216,16 @@ const library = {
         let dayWrap = document.getElementById("yesterday-data");
         dayWrap.innerHTML = '';
         library.getPsalmsForDate(myDate).forEach(n => {
-            const newDiv = document.createElement('div');
-            const textNode = document.createTextNode(library.numberToHumanReadable(n));
-            newDiv.appendChild(textNode);
-            dayWrap.appendChild(newDiv);
-        })
-
+            const text = library.numberToHumanReadable(n);
+            dayWrap.appendChild(_tools.linkText(text));
+        });
 
         myDate.setDate(myDate.getDate() + 1);
         dayWrap = document.getElementById("today-data");
         dayWrap.innerHTML = '';
         library.getPsalmsForDate(myDate).forEach(n => {
-            const newDiv = document.createElement('div');
-            const textNode = document.createTextNode(library.numberToHumanReadable(n));
-            newDiv.appendChild(textNode);
-            dayWrap.appendChild(newDiv);
+            const text = library.numberToHumanReadable(n);
+            dayWrap.appendChild(_tools.linkText(text));
         })
 
 
@@ -225,10 +233,8 @@ const library = {
         dayWrap = document.getElementById("tomorrow-data");
         dayWrap.innerHTML = '';
         library.getPsalmsForDate(myDate).forEach(n => {
-            const newDiv = document.createElement('div');
-            const textNode = document.createTextNode(library.numberToHumanReadable(n));
-            newDiv.appendChild(textNode);
-            dayWrap.appendChild(newDiv);
+            const text = library.numberToHumanReadable(n);
+            dayWrap.appendChild(_tools.linkText(text));
         })
     },
     applyDate: () => {
