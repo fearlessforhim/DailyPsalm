@@ -1,7 +1,16 @@
+:root {
+    --text-base: #AAA;
+    --text-light: #DDD;
+    --red: #FF0000;
+    --bg: #333;
+}
+
 html, body {
     height: 100%;
     margin: 0;
+    background: var(--bg);
 }
+
 .page-parent {
     font-family: Arial, sans-serif;
     text-align: center;
@@ -39,30 +48,84 @@ html, body {
 .title-row {
     width: 100%;
     display: flex;
-    color: #BBB;
+    color: var(--text-base);
 }
 
-.data-display > div > div{
+.data-display > div > div {
     display: flex;
     text-align: center;
     box-sizing: border-box;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .data-display .yesterday {
-    color: #999;
+    color: var(--text-base);
     font-size: 50px;
-    border-right: 1px solid #444;
+    border-right: 3px solid var(--text-base);
 }
 
 .data-display .today {
-    color: #444;
+    color: var(--text-light);
     font-size: 100px;
 }
 
 .data-display .tomorrow {
-    color: #999;
+    color: var(--text-base);
     font-size: 50px;
-    border-left: 1px solid #444;
+    border-left: 3px solid var(--text-base);
+}
+
+.navigation {
+    padding: 10px;
+    cursor: pointer;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    background-color: #222;
+}
+
+.navigation:hover {
+    background-color: #555555;
+}
+
+.caret {
+    border-left: 3px solid var(--text-base);
+    border-top: 3px solid var(--text-base);
+    height: 50px;
+    width: 50px;
+    margin: 10px 0 10px 10px;
+    border-radius: 5px 0 0 0;
+}
+
+.left-caret {
+    transform: rotate(-45deg);
+}
+
+.right-caret {
+    transform: rotate(135deg);
+}
+
+@media (max-width: 1500px) {
+    .title-row {
+        color: #555;
+        font-size: 48px;
+    }
+
+    .yesterday, .tomorrow {
+        display: none;
+    }
+
+    .data-display .today {
+        font-size: 140px;
+    }
+
+    .caret {
+        border-color: black;
+        border-width: 10px;
+    }
 }

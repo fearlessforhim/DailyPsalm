@@ -19,6 +19,5 @@ const readCountsForCurrentYear = stats.map((s, idx) => {
     }
 });
 
-library.buildTitleRow();
-library.buildDataRow();
+library.applyDate(new Date());
 

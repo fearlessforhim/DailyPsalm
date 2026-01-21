@@ -7,17 +7,31 @@
 <body>
 <div class="page-parent">
     <div class="title-row">
-        <div id="yesterday-title" class='yesterday'></div>
+        <div id="yesterday-title" class='yesterday'
+             onclick="library.previousDay()"></div>
         <div id="today-title" class='today'></div>
-        <div id="tomorrow-title" class='tomorrow'></div>
+        <div id="tomorrow-title" class='tomorrow'
+             onclick="library.nextDay()"></div>
     </div>
     <div class="data-display">
+        <div
+                class="navigation"
+                onclick='library.previousDay()'>
+            <div class="caret left-caret"></div>
+        </div>
         <div id='yesterday-data'
-             class='yesterday'></div>
+             class='yesterday'
+             onclick="library.previousDay()"></div>
         <div id='today-data'
              class='today'></div>
         <div id='tomorrow-data'
-             class='tomorrow'></div>
+             class='tomorrow'
+             onclick="library.nextDay()"></div>
+        <div
+                class="navigation"
+                onclick='library.nextDay()'>
+            <div class="caret right-caret"></div>
+        </div>
     </div>
 </div>
 </body>

@@ -1,3 +1,6 @@
+const dataModel = {
+    currentDate: new Date()
+}
 const _tools = {
     startOfWeeksForMonth: (date) => {
         const currentMonth = date.getMonth();
@@ -128,10 +131,6 @@ const _tools = {
         return `Psalm 119 (${stanza})`;
     },
     titleDateFormat: (date) => {
-        const options = {
-            month: 'long',
-            weekday: 'long',
-        }
         return `${date.toLocaleDateString('en-US', {weekday: 'long'})}, ${date.toLocaleDateString('en-US', {
             month: 'long',
             day: "numeric"
@@ -157,7 +156,6 @@ const library = {
         const dayOfMonthLastDigit = dataPoints.dayOfMonth % 10;
         const rtv = [];
         rtv.push(parseInt(`${dataPoints.month}${dayOfMonthLastDigit}`));
-        let psalmB = '';
         if (dataPoints.dayOfMonth === 31) {
             rtv.push(150);
         } else {
@@ -183,35 +181,27 @@ const library = {
             .sort((a, b) => a - b);
     },
     numberToHumanReadable: _tools.numberToHumanReadable,
-    buildTitleRow: () => {
-
-        const options = {
-            month: 'long',
-            weekday: 'long',
-        }
-
-        let myDate = new Date();
-
+    buildTitleRow: (myDate) => {
         myDate.setDate(myDate.getDate() - 1);
         let titleWrap = document.getElementById("yesterday-title");
-        titleWrap.appendChild(_tools.textDiv('Yesterday'));
+        titleWrap.innerHTML = '';
         titleWrap.appendChild(_tools.textDiv(`${_tools.titleDateFormat(myDate)}`));
 
         myDate.setDate(myDate.getDate() + 1);
         titleWrap = document.getElementById("today-title");
-        titleWrap.appendChild(_tools.textDiv('Today'));
+        titleWrap.innerHTML = '';
         titleWrap.appendChild(_tools.textDiv(`${_tools.titleDateFormat(myDate)}`));
 
         myDate.setDate(myDate.getDate() + 1);
         titleWrap = document.getElementById("tomorrow-title");
-        titleWrap.appendChild(_tools.textDiv('Tomorrow'));
+        titleWrap.innerHTML = '';
         titleWrap.appendChild(_tools.textDiv(`${_tools.titleDateFormat(myDate)}`));
     },
-    buildDataRow: () => {
-        let myDate = new Date();
+    buildDataRow: (myDate) => {
 
         myDate.setDate(myDate.getDate() - 1);
         let dayWrap = document.getElementById("yesterday-data");
+        dayWrap.innerHTML = '';
         library.getPsalmsForDate(myDate).forEach(n => {
             const newDiv = document.createElement('div');
             const textNode = document.createTextNode(library.numberToHumanReadable(n));
@@ -222,6 +212,7 @@ const library = {
 
         myDate.setDate(myDate.getDate() + 1);
         dayWrap = document.getElementById("today-data");
+        dayWrap.innerHTML = '';
         library.getPsalmsForDate(myDate).forEach(n => {
             const newDiv = document.createElement('div');
             const textNode = document.createTextNode(library.numberToHumanReadable(n));
@@ -232,11 +223,24 @@ const library = {
 
         myDate.setDate(myDate.getDate() + 1);
         dayWrap = document.getElementById("tomorrow-data");
+        dayWrap.innerHTML = '';
         library.getPsalmsForDate(myDate).forEach(n => {
             const newDiv = document.createElement('div');
             const textNode = document.createTextNode(library.numberToHumanReadable(n));
             newDiv.appendChild(textNode);
             dayWrap.appendChild(newDiv);
         })
+    },
+    applyDate: () => {
+        library.buildTitleRow(new Date(dataModel.currentDate));
+        library.buildDataRow(new Date(dataModel.currentDate))
+    },
+    nextDay: () => {
+        dataModel.currentDate.setDate(dataModel.currentDate.getDate() + 1);
+        library.applyDate();
+    },
+    previousDay: () => {
+        dataModel.currentDate.setDate(dataModel.currentDate.getDate() - 1);
+        library.applyDate();
     }
 };
