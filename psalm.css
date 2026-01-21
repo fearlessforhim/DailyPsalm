@@ -53,6 +53,7 @@ html, body {
 .data-display .yesterday {
     color: #999;
     font-size: 50px;
+    border-right: 1px solid #444;
 }
 
 .data-display .today {
@@ -63,5 +64,5 @@ html, body {
 .data-display .tomorrow {
     color: #999;
     font-size: 50px;
-
+    border-left: 1px solid #444;
 }
