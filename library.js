@@ -51,12 +51,12 @@ const _tools = {
         }
     },
     numberToHumanReadable: (idx) => {
-        if(idx <= 150){
+        if (idx <= 150) {
             return `Psalm ${idx}`;
         }
 
         let stanza = '';
-        switch( idx - 150){
+        switch (idx - 150) {
             case 1:
                 stanza = 'Aleph';
                 break;
@@ -126,6 +126,27 @@ const _tools = {
         }
 
         return `Psalm 119 (${stanza})`;
+    },
+    titleDateFormat: (date) => {
+        const options = {
+            month: 'long',
+            weekday: 'long',
+        }
+        return `${date.toLocaleDateString('en-US', {weekday: 'long'})}, ${date.toLocaleDateString('en-US', {
+            month: 'long',
+            day: "numeric"
+        })}`;
+    },
+    div: () => {
+        return document.createElement('div')
+    },
+    text: (text) => {
+        return document.createTextNode(text);
+    },
+    textDiv: (text) => {
+        const div = _tools.div();
+        div.appendChild(_tools.text(text));
+        return div;
     }
 }
 
@@ -161,5 +182,61 @@ const library = {
             .filter(p => p && p !== 119)
             .sort((a, b) => a - b);
     },
-    numberToHumanReadable: _tools.numberToHumanReadable
+    numberToHumanReadable: _tools.numberToHumanReadable,
+    buildTitleRow: () => {
+
+        const options = {
+            month: 'long',
+            weekday: 'long',
+        }
+
+        let myDate = new Date();
+
+        myDate.setDate(myDate.getDate() - 1);
+        let titleWrap = document.getElementById("yesterday-title");
+        titleWrap.appendChild(_tools.textDiv('Yesterday'));
+        titleWrap.appendChild(_tools.textDiv(`${_tools.titleDateFormat(myDate)}`));
+
+        myDate.setDate(myDate.getDate() + 1);
+        titleWrap = document.getElementById("today-title");
+        titleWrap.appendChild(_tools.textDiv('Today'));
+        titleWrap.appendChild(_tools.textDiv(`${_tools.titleDateFormat(myDate)}`));
+
+        myDate.setDate(myDate.getDate() + 1);
+        titleWrap = document.getElementById("tomorrow-title");
+        titleWrap.appendChild(_tools.textDiv('Tomorrow'));
+        titleWrap.appendChild(_tools.textDiv(`${_tools.titleDateFormat(myDate)}`));
+    },
+    buildDataRow: () => {
+        let myDate = new Date();
+
+        myDate.setDate(myDate.getDate() - 1);
+        let dayWrap = document.getElementById("yesterday-data");
+        library.getPsalmsForDate(myDate).forEach(n => {
+            const newDiv = document.createElement('div');
+            const textNode = document.createTextNode(library.numberToHumanReadable(n));
+            newDiv.appendChild(textNode);
+            dayWrap.appendChild(newDiv);
+        })
+
+
+        myDate.setDate(myDate.getDate() + 1);
+        dayWrap = document.getElementById("today-data");
+        library.getPsalmsForDate(myDate).forEach(n => {
+            const newDiv = document.createElement('div');
+            const textNode = document.createTextNode(library.numberToHumanReadable(n));
+            newDiv.appendChild(textNode);
+            dayWrap.appendChild(newDiv);
+        })
+
+
+        myDate.setDate(myDate.getDate() + 1);
+        dayWrap = document.getElementById("tomorrow-data");
+        library.getPsalmsForDate(myDate).forEach(n => {
+            const newDiv = document.createElement('div');
+            const textNode = document.createTextNode(library.numberToHumanReadable(n));
+            newDiv.appendChild(textNode);
+            dayWrap.appendChild(newDiv);
+        })
+    }
 };
