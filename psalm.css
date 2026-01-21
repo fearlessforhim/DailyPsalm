@@ -48,7 +48,7 @@ html, body {
 .title-row {
     width: 100%;
     display: flex;
-    color: var(--text-base);
+    color: var(--text-light);
 }
 
 .data-display > div > div {
@@ -112,7 +112,7 @@ html, body {
 
 @media (max-width: 1500px) {
     .title-row {
-        color: #555;
+        color: var(--text-light);
         font-size: 48px;
     }
 
