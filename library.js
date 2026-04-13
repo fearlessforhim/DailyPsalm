@@ -55,7 +55,7 @@ const _tools = {
     },
     numberToHumanReadable: (idx) => {
         if (idx <= 150) {
-            return `Psalm ${idx}`;
+            return `Psalms ${idx}`;
         }
 
         let stanza = '';
@@ -128,7 +128,7 @@ const _tools = {
                 break;
         }
 
-        return `Psalm 119 (${stanza})`;
+        return `Psalms 119 (${stanza})`;
     },
     titleDateFormat: (date) => {
         return `${date.toLocaleDateString('en-US', {weekday: 'long'})}, ${date.toLocaleDateString('en-US', {
@@ -143,11 +143,11 @@ const _tools = {
         return document.createTextNode(text);
     },
     linkText: (text) => {
-        let linkText = text.replace(' ', '+') + '';
+        let linkText = text.slice(text.indexOf(' ') + 1, text.length) + '';
         if (linkText.indexOf('(') >= 0) {
             linkText = linkText.slice(0, linkText.indexOf('(') - 1);
         }
-        const href = `https://www.esv.org/${linkText}/`;
+        const href = `https://www.bible.com/bible/59/PSA.${linkText}.ESV`;
         const newA = document.createElement('a');
         newA.href = href;
         newA.target = '_blank';
